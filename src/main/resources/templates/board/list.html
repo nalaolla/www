@@ -17,13 +17,20 @@
             <thead>
             <tr>
                 <th class="col-md-1">#</th>
-                <th class="col-md-2">서비스분류</th>
+                <th class="col-md-2">title</th>
+                <th class="col-md-2">userid</th>
+                <th class="col-md-2">contents</th>
+
 
             </tr>
             </thead>
             <tbody>
             <tr th:each="board : ${boardList}">
                 <td th:text="${board.seq}"></td>
+                <td th:text="${board.title}"></td>
+                <td th:text="${board.userid}"></td>
+                <td th:text="${board.contents}"></td>
+
 
             </tr>
             </tbody>
