@@ -1,0 +1,7 @@
+# 기본테스트
+POST http://localhost:8080/board/write
+Content-Type: application/json
+
+< Board.json
+
+###
