@@ -26,7 +26,7 @@ public class BoardController {
         return "/board/list";
     }
 
-    @GetMapping("/detail")
+    @GetMapping("/detail/{seq}")
     public ModelAndView getDetail(Long seq) {
         ModelAndView mv = new ModelAndView();
 
@@ -36,6 +36,12 @@ public class BoardController {
         mv.addObject("detail", dto);
 
         return mv;
+    }
+
+    @GetMapping("/delete/{seq}")
+    public String delete(Long seq) {
+        boardService.delete(seq);
+        return "redirect:/board/list";
     }
 
 

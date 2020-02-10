@@ -27,6 +27,7 @@ public class BoardRestController {
 
     @PostMapping("/update")
     public String update(@RequestBody BoardDto dto) {
-        return null;
+        boardService.updateBoard(dto);
+        return "/board/detail/"+dto.getSeq();
     }
 }

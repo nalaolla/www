@@ -59,4 +59,14 @@ public class BoardService {
 
         return boardDto;
     }
+
+    @Transactional
+    public Long updateBoard(BoardDto boardDto) {
+        return boardRepository.save(boardDto.toEntity()).getSeq();
+    }
+
+    @Transactional
+    public void delete(Long seq) {
+        boardRepository.deleteById(seq);
+    }
 }
