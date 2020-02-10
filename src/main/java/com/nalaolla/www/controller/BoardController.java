@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -23,6 +24,18 @@ public class BoardController {
         model.addAttribute("boardList", boardList);
 
         return "/board/list";
+    }
+
+    @GetMapping("/detail")
+    public ModelAndView getDetail(Long seq) {
+        ModelAndView mv = new ModelAndView();
+
+        BoardDto dto = boardService.getDetail(seq);
+
+        mv.setViewName("/board/detail");
+        mv.addObject("detail", dto);
+
+        return mv;
     }
 
 

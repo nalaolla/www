@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @AllArgsConstructor
 @Service
@@ -39,5 +40,23 @@ public class BoardService {
         }
 
         return boardDtoList;
+    }
+
+    @Transactional
+    public BoardDto getDetail(Long seq) {
+        Optional<BoardEntity> dto = boardRepository.findById(seq);
+
+        BoardEntity boardDetail = dto.get();
+
+        BoardDto boardDto = BoardDto.builder()
+                .seq(boardDetail.getSeq())
+                .title(boardDetail.getTitle())
+                .userid(boardDetail.getUserid())
+                .contents(boardDetail.getContents())
+                .regdate(boardDetail.getRegdate())
+                .moddate(boardDetail.getModdate())
+                .build();
+
+        return boardDto;
     }
 }
