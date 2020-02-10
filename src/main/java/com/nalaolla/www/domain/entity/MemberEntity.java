@@ -3,23 +3,20 @@ package com.nalaolla.www.domain.entity;
 import com.nalaolla.www.config.BaseTimeEntity;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-@Setter
 @Getter
+@Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "user")
 public class MemberEntity extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long seq;
 
     @Column(length = 100, nullable = false)
-    private String id;
+    private String userid;
 
     @Column(length = 200, nullable = true)
     private String email;
@@ -31,9 +28,9 @@ public class MemberEntity extends BaseTimeEntity {
     private String password;
 
     @Builder
-    public MemberEntity(Long seq, String id, String email, String name, String password) {
+    public MemberEntity(Long seq, String userid, String email, String name, String password) {
         this.seq = seq;
-        this.id = id;
+        this.userid = userid;
         this.name = name;
         this.email = email;
         this.password = password;

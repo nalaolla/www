@@ -9,7 +9,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 public class WwwApplication {
 
 	public static void main(String[] args) {
-		System.out.println("www nalaolla start");
 		SpringApplication.run(WwwApplication.class, args);
 	}
 

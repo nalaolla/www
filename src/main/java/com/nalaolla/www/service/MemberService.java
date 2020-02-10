@@ -3,10 +3,7 @@ package com.nalaolla.www.service;
 import com.nalaolla.www.domain.Role;
 import com.nalaolla.www.domain.entity.MemberEntity;
 import com.nalaolla.www.domain.repository.MemberRepository;
-import com.nalaolla.www.dto.UserDto;
-import java.util.List;
-import java.util.ArrayList;
-
+import com.nalaolla.www.dto.MemberDto;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,6 +15,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,27 +26,27 @@ public class MemberService implements UserDetailsService {
     private MemberRepository memberRepository;
 
     @Transactional
-    public Long joinUser(UserDto userDto) {
+    public Long joinUser(MemberDto memberDto) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        memberDto.setPassword(passwordEncoder.encode(memberDto.getPassword()));
 
-        return memberRepository.save(userDto.toEntity()).getSeq();
+        return memberRepository.save(memberDto.toEntity()).getSeq();
     }
 
     @Override
-    public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
-        Optional<MemberEntity> memberEntityWrapper = memberRepository.findbyUserid(id);
+    public UserDetails loadUserByUsername(String userid) throws UsernameNotFoundException {
+        Optional<MemberEntity> memberEntityWrapper = memberRepository.findByUserid(userid);
 
         MemberEntity memberEntity = memberEntityWrapper.get();
 
         List<GrantedAuthority> authorities = new ArrayList<>();
 
-        if (("admin").equals(id)) {
+        if (("admin").equals(userid)) {
             authorities.add(new SimpleGrantedAuthority(Role.ADMIN.getValue()));
         } else {
             authorities.add(new SimpleGrantedAuthority(Role.MEMBER.getValue()));
         }
-        return new User(memberEntity.getId(), memberEntity.getPassword(), authorities);
+        return new User(memberEntity.getUserid(), memberEntity.getPassword(), authorities);
     }
 
 

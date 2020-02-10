@@ -9,9 +9,9 @@ import java.time.LocalDateTime;
 @Setter
 @ToString
 @NoArgsConstructor
-public class UserDto {
+public class MemberDto {
     private Long seq;
-    private String id;
+    private String userid;
     private String name;
     private String email;
     private String password;
@@ -21,7 +21,7 @@ public class UserDto {
     public MemberEntity toEntity() {
         MemberEntity memberEntity = MemberEntity.builder()
                 .seq(seq)
-                .id(id)
+                .userid(userid)
                 .name(name)
                 .email(email)
                 .password(password)
@@ -31,9 +31,9 @@ public class UserDto {
     }
 
     @Builder
-    public UserDto(Long seq, String id, String name, String email, String password, LocalDateTime regdate, LocalDateTime moddate) {
+    public MemberDto(Long seq, String userid, String name, String email, String password, LocalDateTime regdate, LocalDateTime moddate) {
         this.seq = seq;
-        this.id = id;
+        this.userid = userid;
         this.name = name;
         this.email = email;
         this.password = password;
