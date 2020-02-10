@@ -29,8 +29,14 @@ public class MemberService implements UserDetailsService {
     public Long joinUser(MemberDto memberDto) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         memberDto.setPassword(passwordEncoder.encode(memberDto.getPassword()));
+        Boolean isExist =  memberRepository.findByUserid(memberDto.getUserid()).isPresent();
 
-        return memberRepository.save(memberDto.toEntity()).getSeq();
+        if (!isExist) {
+            return memberRepository.save(memberDto.toEntity()).getSeq();
+        } else {
+            System.out.println("user already..");
+            return null;
+        }
     }
 
     @Override
@@ -40,6 +46,8 @@ public class MemberService implements UserDetailsService {
         MemberEntity memberEntity = memberEntityWrapper.get();
 
         List<GrantedAuthority> authorities = new ArrayList<>();
+
+        System.out.println(userid);
 
         if (("admin").equals(userid)) {
             authorities.add(new SimpleGrantedAuthority(Role.ADMIN.getValue()));
