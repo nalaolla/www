@@ -24,4 +24,9 @@ public class BoardRestController {
         Long result = boardService.saveBoard(dto);
         return result.toString();
     }
+
+    @PostMapping("/update")
+    public String update(@RequestBody BoardDto dto) {
+        return null;
+    }
 }
