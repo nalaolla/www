@@ -69,4 +69,12 @@ public class BoardService {
     public void delete(Long seq) {
         boardRepository.deleteById(seq);
     }
+
+    @Transactional
+    public List<BoardDto> search(String keyword) {
+        List<BoardEntity> boardEntities = boardRepository.findByTitleContaining(keyword);
+        List<BoardDto> list = new ArrayList<BoardDto>();
+
+        return list;
+    }
 }
