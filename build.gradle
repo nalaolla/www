@@ -19,6 +19,16 @@ configurations {
 }
 
 repositories {
+    /**
+    - gradle이 필요한 라이브러리를 자동으로 다운로드 하기위해 사용하는 저장소
+    - jcenter() 과 mavenCentral()이 주로 사용된다
+    - jcenter() 과 mavenCetneral()은 Gradle의 메소드이다.
+
+    저장소 종류
+    1) Maven 중앙 저장소 - mavenCentral()
+    2) JCenter 저장소 - jcenter()
+     */
+
     mavenCentral()
 }
 
@@ -38,6 +48,39 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+
+    /**
+     * - 저장소에서 필요한 라이브러리를 사용하기위한 문장
+     * 의존문 종류
+     * 1) implementation 'com.google.guava:guava:23.0'
+     * - implementation ~
+     * - 컴파일시에 의존하는(사용) 라이브러리를 지정
+     * 2) testCompile 'junit:junit:4.12'
+     * - testImplementation ~
+     * - 테스트 컴파일(단위테스팅)에 사용하는 라이브러리를 지정
+     * 3) classpath '...라이브러리'
+     * - classpath ~
+     * - 컴파일부터 실행시까지 의존하는 라이브러리 지정에 사용된다
+     *
+     *
+     * Dependencies 블록 안에서 라이브러리 지정법
+     * 'com.google.guava:guava:22.0'
+     * 그룹 : com.google.guava
+     * 이름 : guava
+     * 버전 : 22.0
+     *
+     * 1) 그룹
+     * - 그룹은 해당 라이브러리가 속해있는 기업 및 단체를 나타냄
+     *
+     * 2) 이름
+     * - 라이브러리의 이름
+     *
+     * 3) 버전
+     * - 라이브러리의 버전을 나타냄
+     *
+     * 라이브러리 개별 지정방법
+     * implementation 'junit:junit:4.12' -> implementation group:'junit' , name:'junit' , version:'4.12'
+     */
 }
 
 test {

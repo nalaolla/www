@@ -1,4 +1,4 @@
-POST http://localhost:8080/board/update
+POST http://localhost:8080/boardRest/update
 Content-Type: application/json
 
 < BoardUpdate.json

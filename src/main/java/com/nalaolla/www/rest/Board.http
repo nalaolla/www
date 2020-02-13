@@ -1,5 +1,5 @@
 # 기본테스트
-POST http://localhost:8080/board/write
+POST http://localhost:8080/boardRest/write
 Content-Type: application/json
 
 < Board.json
