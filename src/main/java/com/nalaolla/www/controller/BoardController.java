@@ -28,6 +28,17 @@ public class BoardController {
         return "/board/list";
     }
 
+    @GetMapping("listPage")
+    public String getListPage(Model model, @RequestParam(value = "page", defaultValue = "1") Integer page) {
+        List<BoardDto> boardList = boardService.getBoardPageList(page);
+
+        Long pageCount = boardService.getPageCount();
+
+        List<Integer> pageList = boardService.getPageList(page);
+
+        return "/board/listPage";
+    }
+
     @GetMapping("/detail/{seq}")
     public ModelAndView getDetail(Long seq) {
         ModelAndView mv = new ModelAndView();

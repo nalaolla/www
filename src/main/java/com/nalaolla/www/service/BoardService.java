@@ -4,6 +4,9 @@ import com.nalaolla.www.domain.entity.BoardEntity;
 import com.nalaolla.www.domain.repository.BoardRepository;
 import com.nalaolla.www.dto.BoardDto;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -14,6 +17,9 @@ import java.util.Optional;
 @AllArgsConstructor
 @Service
 public class BoardService {
+
+    private static final int PAGE_SIZE = 3;
+    private static final int PAGING_COUNT = 5;
 
     private BoardRepository boardRepository;
 
@@ -40,6 +46,29 @@ public class BoardService {
         }
 
         return boardDtoList;
+    }
+
+    @Transactional
+    public List<BoardDto> getBoardPageList(Integer pageNum) {
+        Page<BoardEntity> page = boardRepository.findAll(PageRequest.of(pageNum-1, PAGE_SIZE, Sort.by(Sort.Direction.DESC, "seq")));
+        List<BoardEntity> boardEntities = page.getContent();
+        System.out.println(page.getTotalPages());
+        //Page class를 활용하면 페이징 처리를 쉽게 할 수 있을듯 싶다..
+        return null;
+    }
+
+    @Transactional
+    public Long getPageCount() {
+        return boardRepository.count();
+    }
+
+    @Transactional
+    public List<Integer> getPageList(Integer pageNum) {
+
+        Long totalPage = getPageCount();
+
+        List<Integer> pageList = new ArrayList<>();
+        return pageList;
     }
 
     @Transactional
@@ -75,6 +104,26 @@ public class BoardService {
         List<BoardEntity> boardEntities = boardRepository.findByTitleContaining(keyword);
         List<BoardDto> list = new ArrayList<BoardDto>();
 
+        if (boardEntities.isEmpty()) {
+            return list;
+        }
+
+        for(BoardEntity boardEntity : boardEntities) {
+            list.add(convertEntityToDto(boardEntity));
+        }
         return list;
+    }
+
+    private BoardDto convertEntityToDto(BoardEntity boardEntity) {
+        BoardDto dto = BoardDto.builder()
+                .seq(boardEntity.getSeq())
+                .title(boardEntity.getTitle())
+                .userid(boardEntity.getUserid())
+                .contents(boardEntity.getContents())
+                .regdate(boardEntity.getRegdate())
+                .moddate(boardEntity.getModdate())
+                .build();
+
+        return dto;
     }
 }
