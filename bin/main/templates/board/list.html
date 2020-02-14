@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title></title>
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+</head>
+
+<body>
+<div class="container">
+    <div class="page-header">
+        <h1>목록</h1>
+    </div>
+
+    <!-- 검색 form -->
+    <form action="/board/search" method="GET">
+        <div>
+            <input name="keyword" type="text" placeholder="검색어를 입력해주세요">
+        </div>
+
+        <button>검색하기</button>
+    </form>
+
+    <div id="mainHide">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th class="col-md-1">#</th>
+                <th class="col-md-2">title</th>
+                <th class="col-md-2">userid</th>
+                <th class="col-md-2">contents</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="board : ${boardList}">
+                <td th:text="${board.seq}"></td>
+                <td th:text="${board.title}"></td>
+                <td th:text="${board.userid}"></td>
+                <td th:text="${board.contents}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<br/>
+
+</body>
+</html>
+
