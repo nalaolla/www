@@ -59,7 +59,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
          * .anyRequest().authenticated()
          * 모든 요청에 대해, 인증된 사용자만 접근하도록 설정할 수도 있습니다.
          */
-        httpSecurity.authorizeRequests()
+        httpSecurity
+                .csrf().disable()
+
+                .authorizeRequests()
                 // 페이지 권한 설정
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/user/my").hasRole("MEMBER")
