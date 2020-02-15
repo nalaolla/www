@@ -8,14 +8,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @AllArgsConstructor
 @Service
+@Transactional
 public class BoardService {
 
     private static final int PAGE_SIZE = 3;
@@ -23,12 +24,10 @@ public class BoardService {
 
     private BoardRepository boardRepository;
 
-    @Transactional
     public Long saveBoard(BoardDto dto) {
         return boardRepository.save(dto.toEntity()).getSeq();
     }
 
-    @Transactional
     public List<BoardDto> getBoardList() {
         List<BoardEntity> boardList = boardRepository.findAll();
         List<BoardDto> boardDtoList = new ArrayList<BoardDto>();
@@ -48,7 +47,6 @@ public class BoardService {
         return boardDtoList;
     }
 
-    @Transactional
     public List<BoardDto> getBoardPageList(Integer pageNum) {
         Page<BoardEntity> page = boardRepository.findAll(PageRequest.of(pageNum-1, PAGE_SIZE, Sort.by(Sort.Direction.DESC, "seq")));
         List<BoardEntity> boardEntities = page.getContent();
@@ -57,12 +55,10 @@ public class BoardService {
         return null;
     }
 
-    @Transactional
     public Long getPageCount() {
         return boardRepository.count();
     }
 
-    @Transactional
     public List<Integer> getPageList(Integer pageNum) {
 
         Long totalPage = getPageCount();
@@ -71,7 +67,6 @@ public class BoardService {
         return pageList;
     }
 
-    @Transactional
     public BoardDto getDetail(Long seq) {
         Optional<BoardEntity> dto = boardRepository.findById(seq);
 
@@ -89,17 +84,19 @@ public class BoardService {
         return boardDto;
     }
 
-    @Transactional
+    /**
+     *
+     * @param boardDto
+     * @return
+     */
     public Long updateBoard(BoardDto boardDto) {
         return boardRepository.save(boardDto.toEntity()).getSeq();
     }
 
-    @Transactional
     public void delete(Long seq) {
         boardRepository.deleteById(seq);
     }
 
-    @Transactional
     public List<BoardDto> search(String keyword) {
         List<BoardEntity> boardEntities = boardRepository.findByTitleContaining(keyword);
         List<BoardDto> list = new ArrayList<BoardDto>();

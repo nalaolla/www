@@ -1,10 +1,12 @@
 package com.nalaolla.www.service;
 
+import com.nalaolla.www.config.CacheKey;
 import com.nalaolla.www.domain.Role;
 import com.nalaolla.www.domain.entity.MemberEntity;
 import com.nalaolla.www.domain.repository.MemberRepository;
 import com.nalaolla.www.dto.MemberDto;
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -55,6 +57,16 @@ public class MemberService implements UserDetailsService {
             authorities.add(new SimpleGrantedAuthority(Role.MEMBER.getValue()));
         }
         return new User(memberEntity.getUserid(), memberEntity.getPassword(), authorities);
+    }
+
+    @Cacheable(value = CacheKey.USER, key = "#seq", unless = "#result == null")
+    public MemberEntity loadUserBySeq(Long seq) {
+//        MemberEntity memberEntity = memberRepository.findBySeq(seq);
+//        MemberDto memberDto = new MemberDto();
+//        memberDto.setEmail(memberEntity.getEmail());
+//
+//        return memberDto;
+        return memberRepository.findBySeq(Long.valueOf(seq));
     }
 
 

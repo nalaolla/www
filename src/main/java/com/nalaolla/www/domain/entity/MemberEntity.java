@@ -4,12 +4,13 @@ import com.nalaolla.www.config.BaseTimeEntity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "user")
-public class MemberEntity extends BaseTimeEntity {
+public class MemberEntity extends BaseTimeEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
