@@ -12,6 +12,18 @@ spring:
     livereload:
       enabled: true
 
+  social:
+    kakao:
+      client_id: eafde97f01e399d851d3618663c942a4
+      redirect: /social/login/kakao
+      url:
+        login: https://kauth.kakao.com/oauth/authorize
+        token: https://kauth.kakao.com/oauth/token
+        profile: https://kapi.kakao.com/v2/user/me
+
+  url:
+    base:http://localhost:8080
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: palaoh
@@ -72,3 +84,4 @@ logging:
             sql:
               BasicBinder: TRACE
 #  logging.level.org.hibernate.type.descriptor.sql : SQL에서 물음표로 표기된 부분( bind parameter )을 로그로 출력해서 확인할 수 있습니다.
+

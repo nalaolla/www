@@ -55,6 +55,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'it.ozimov:embedded-redis:0.7.2'
 
+    implementation 'com.google.code.gson:gson'
+
     /**
      * - 저장소에서 필요한 라이브러리를 사용하기위한 문장
      * 의존문 종류
