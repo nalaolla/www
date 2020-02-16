@@ -12,18 +12,6 @@ spring:
     livereload:
       enabled: true
 
-  social:
-    kakao:
-      client_id: eafde97f01e399d851d3618663c942a4
-      redirect: /social/login/kakao
-      url:
-        login: https://kauth.kakao.com/oauth/authorize
-        token: https://kauth.kakao.com/oauth/token
-        profile: https://kapi.kakao.com/v2/user/me
-
-  url:
-    base:http://localhost:8080
-
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: palaoh
